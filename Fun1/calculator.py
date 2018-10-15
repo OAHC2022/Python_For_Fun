@@ -39,11 +39,17 @@ def binop(string):
                 revere_polish_n.extend(calc[calc_j:i][::-1])
             num_j = i + 1
             calc_j = i
-            print(revere_polish_n)
+        if calc[i] in "-":
+            revere_polish_n.extend(num[num_j:i + 1])
+            if i > calc_j:
+                revere_polish_n.extend(calc[calc_j:i][::-1])
+            num_j = i + 1
+            calc_j = i
+
 
     revere_polish_n.extend(num[num_j:])
     revere_polish_n.extend(calc[calc_j:][::-1])
-    print(revere_polish_n, num, calc,calc_j)
+
 
     # convert the first value to negative if it is negative
     if first_value_negative:
@@ -70,7 +76,6 @@ def binop(string):
             if revere_polish_n[i] == "/":
                 stack_num[-2] = stack_num[-1] / stack_num[-2]
                 stack_num.remove(stack_num[-1])
-
     return stack_num[0]
 
 
