@@ -24,7 +24,6 @@ def binop(string):
     """
     calc = calc[::-1]
     num = num[::-1]
-    print(num, calc)
     revere_polish_n = num.copy()
     calc_temp = []
     symbol_num = 0
@@ -46,8 +45,6 @@ def binop(string):
             calc_temp.append(i)
     revere_polish_n.extend(calc_temp[::-1])
 
-    print(revere_polish_n)
-
     # convert the first value to negative if it is negative
     if first_value_negative:
         for counter, val in enumerate(revere_polish_n[::-1]):
@@ -55,7 +52,7 @@ def binop(string):
                 revere_polish_n[len(revere_polish_n) - 1 - counter] = str(-int(revere_polish_n[::-1][counter]))
                 break
 
-    # calculate!
+    # calculate with stack!
     stack_num = []
     for i in range(len(revere_polish_n)):
         if revere_polish_n[i] not in "+-*/":
@@ -63,20 +60,19 @@ def binop(string):
         else:
             if revere_polish_n[i] == "+":
                 stack_num[-2] = stack_num[-1] + stack_num[-2]
-                stack_num.remove(stack_num[-1])
+                del stack_num[-1]
             if revere_polish_n[i] == "-":
                 stack_num[-2] = stack_num[-1] - stack_num[-2]
-                stack_num.remove(stack_num[-1])
+                del stack_num[-1]
             if revere_polish_n[i] == "*":
                 stack_num[-2] = stack_num[-1] * stack_num[-2]
-                stack_num.remove(stack_num[-1])
+                del stack_num[-1]
             if revere_polish_n[i] == "/":
                 stack_num[-2] = stack_num[-1] / stack_num[-2]
-                stack_num.remove(stack_num[-1])
-    print(revere_polish_n)
-    return stack_num[0]
+                del stack_num[-1]
+    print(stack_num[0])
 
 
 if __name__ == "__main__":
     string = sys.stdin.readline().strip()
-    print(binop(string))
+    binop(string)
