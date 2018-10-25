@@ -27,6 +27,7 @@ def binop(string):
     revere_polish_n = num.copy()
     calc_temp = []
     symbol_num = 0
+    """Find all the */"""
     for i in range(len(calc)):
         if calc[i] in "*/" and i == len(calc) - 1:
             calc_temp.append(calc[i])
@@ -40,6 +41,7 @@ def binop(string):
             symbol_num += len(calc_temp)
             calc_temp = []
     calc_temp = []
+    """append the rest of the +- into the stack"""
     for i in calc:
         if i in "+-":
             calc_temp.append(i)
